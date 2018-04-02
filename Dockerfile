@@ -1,6 +1,7 @@
 FROM alpine:3.7
 
 ENV MOODLE_GIT_VERSION="MOODLE_34_STABLE"
+ENV TIMEZONE="America/Sao_Paulo"
 
 RUN apk update && apk upgrade
 
@@ -12,7 +13,7 @@ git \
 vim \
 curl
 
-RUN rm -f /etc/localtime && ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+RUN rm -f /etc/localtime && ln -fs /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 
 RUN apk --no-cache add \
 apache2 \
@@ -27,8 +28,6 @@ php7-mbstring \
 php7-xmlrpc \
 php7-soap \
 php7-intl 
-
-ADD phpinfo.php /var/www/localhost/htdocs/phpinfo.php
 
 RUN cd /var/www/localhost/htdocs/ && git clone -b $MOODLE_GIT_VERSION git://git.moodle.org/moodle.git --depth=1
 
