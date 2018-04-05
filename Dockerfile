@@ -31,6 +31,8 @@ php7-intl
 
 RUN cd /var/www/localhost/htdocs/ && git clone -b $MOODLE_GIT_VERSION git://git.moodle.org/moodle.git --depth=1
 
+RUN echo -e '<?php \nphpinfo(); \n?>' > /var/www/localhost/htdocs/phpinfo.php
+
 RUN chown -R apache:apache /var/www/localhost/htdocs/ && chmod -R 755 /var/www/localhost/htdocs/
 
 RUN mkdir /var/www/localhost/moodledata
